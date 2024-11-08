@@ -1,0 +1,61 @@
+<div class="outer-container">
+  <div style="padding-left: 2rem"></div>
+  <div class="login-container">
+    <h2>Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" formControlName="email" [appInputHighlight]="true" />
+        <div
+          *ngIf="
+            loginForm.get('email')?.touched && loginForm.get('email')?.invalid
+          "
+          class="error"
+        >
+          <span *ngIf="loginForm.get('email')?.errors?.['required']"
+            >Email is required.</span
+          >
+          <span *ngIf="loginForm.get('email')?.errors?.['email']"
+            >Enter a valid email address.</span
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-group">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            formControlName="password"
+          />
+          <span class="input-group-text" (click)="togglePassword()">
+            <fa-icon [icon]="showPassword ? faEye : faEyeClose"></fa-icon>
+          </span>
+        </div>
+        <div
+          *ngIf="
+            loginForm.get('password')?.touched &&
+            loginForm.get('password')?.invalid
+          "
+          class="error"
+        >
+          <span *ngIf="loginForm.get('password')?.errors?.['required']"
+            >Password is required.</span
+          >
+          <span *ngIf="loginForm.get('password')?.errors?.['minlength']"
+            >Password must be at least 6 characters long.</span
+          >
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="loginForm.invalid">Login</button>
+    </form>
+
+    <!-- Signup link -->
+    <div class="signup-link">
+      <p>Don't have an account? <a routerLink="../signup">Sign up here</a></p>
+    </div>
+  </div>
+  <div style="padding-left: 2rem"></div>
+</div>
